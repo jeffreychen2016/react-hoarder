@@ -7,9 +7,12 @@ import Login from '../components/Login/Login';
 import MyStuffs from '../components/MyStuffs/MyStuffs';
 import Navbar from '../components/Navbar/Navbar';
 import {Route, BrowserRouter, Redirect, Switch} from 'react-router-dom';
+import fbconnection from '../firebaseRequests/connection';
+import firebase from 'firebase';
 
 import './App.css';
 
+fbconnection();
 const PrivateRoute = ({component: Component, authed, ...rest}) => {
   return (
     <Route
@@ -46,8 +49,22 @@ const PublicRoute = ({component: Component, authed, ...rest}) => {
 
 class App extends Component {
   state = {
-    authed: true,
+    authed: false,
   };
+
+  componentDidMount () {
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({authed: true});
+      } else {
+        this.setState({authed: false});
+      };
+    });
+  };
+
+  componentWillUnmount () {
+    this.removeListener();
+  }
 
   render () {
     return (
