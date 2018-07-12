@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import AllStuffs from '../components/AllStuffs/AllStuffs';
 import Home from '../components/Home/Home';
+import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
 import MyStuffs from '../components/MyStuffs/MyStuffs';
 import Navbar from '../components/Navbar/Navbar';
 import {Route, BrowserRouter, Redirect, Switch} from 'react-router-dom';
+import fbconnection from '../firebaseRequests/connection';
+import firebase from 'firebase';
 
 import './App.css';
 
+fbconnection();
 const PrivateRoute = ({component: Component, authed, ...rest}) => {
   return (
     <Route
@@ -45,8 +49,22 @@ const PublicRoute = ({component: Component, authed, ...rest}) => {
 
 class App extends Component {
   state = {
-    authed: true,
+    authed: false,
   };
+
+  componentDidMount () {
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({authed: true});
+      } else {
+        this.setState({authed: false});
+      };
+    });
+  };
+
+  componentWillUnmount () {
+    this.removeListener();
+  }
 
   render () {
     return (
@@ -58,6 +76,11 @@ class App extends Component {
             />
             <Switch>
               <Route path="/home" exact component={Home}/>
+              <PublicRoute
+                path="/register"
+                authed={this.state.authed}
+                component={Register}
+              />
               <PublicRoute
                 path="/login"
                 authed={this.state.authed}
