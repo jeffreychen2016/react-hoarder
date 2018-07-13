@@ -14,4 +14,24 @@ const postRequest = (stuffToAdd) => {
   });
 };
 
-export default {postRequest};
+const getRequest = (uid) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${constants.firebaseConfig.databaseURL}/myStuffs.json?orderBy="uId"&equalTo="${uid}"`)
+      .then(res => {
+        const myStuffs = [];
+        if (res.data !== null) {
+          Object.keys(res.data).forEach(fbKey => {
+            res.data[fbKey].id = fbKey;
+            myStuffs.push(res.data[fbKey]);
+          });
+        }
+        resolve(myStuffs);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+export default {postRequest,getRequest};
