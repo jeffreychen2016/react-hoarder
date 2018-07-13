@@ -12,4 +12,9 @@ const logoutUser = () => {
   return firebase.auth().signOut();
 };
 
-export default {registerUser,loginUser, logoutUser};
+// get the UID from the local broswer cookie.
+const getUid = () => {
+  return firebase.auth().currentUser.uid;
+};
+
+export default {registerUser,loginUser, logoutUser,getUid};
