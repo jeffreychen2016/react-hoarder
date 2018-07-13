@@ -1,0 +1,21 @@
+.Stuff {
+  background-color: darkblue;
+
+  .thumbnail {
+    height: 450px;
+  }
+
+  h3 {
+    height: 50px;
+  }
+
+  img {
+    height: 200px;
+  }
+
+  p {
+    height: 100px;
+    overflow: scroll;
+  }
+}
+
