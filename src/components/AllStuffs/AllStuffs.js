@@ -15,7 +15,7 @@ class AllStuffs extends React.Component {
         this.setState({allStuffs});
       })
       .catch((err) => {
-        console.error('error with fish get request', err);
+        console.error('error with get request', err);
       });
   };
 
@@ -30,7 +30,11 @@ class AllStuffs extends React.Component {
     return (
       <div className="AllStuffs">
         <h2>AllStuffs</h2>
-        {stuffComponent}
+        <div className="container-fluid">
+          <div className="row">
+            {stuffComponent}
+          </div>
+        </div>
       </div>
     );
   }
