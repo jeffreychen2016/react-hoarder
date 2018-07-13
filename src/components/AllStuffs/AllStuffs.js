@@ -30,9 +30,7 @@ class AllStuffs extends React.Component {
     return (
       <div className="AllStuffs">
         <h2>AllStuffs</h2>
-        <ul>
-          {stuffComponent}
-        </ul>
+        {stuffComponent}
       </div>
     );
   }
