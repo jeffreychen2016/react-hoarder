@@ -1,7 +1,27 @@
 import React from 'react';
 import './Stuff.css';
+import stuffRequests from '../../firebaseRequests/stuff';
+import authRequests from '../../firebaseRequests/auth';
 
 class Stuff extends React.Component {
+
+  addStuffEvent = () => {
+    const stuffToAdd = {
+      uId: authRequests.getUid(),
+      itemName: this.props.details.itemName,
+      itemDescription: this.props.details.itemDescription,
+      itemImage: this.props.details.itemImage,
+    };
+    stuffRequests
+      .postRequest(stuffToAdd)
+      .then(() => {
+        // this.props.history.push('./allstuffs');
+      })
+      .catch((err) => {
+        console.error('Error with posting stuff',err);
+      });
+  };
+
   render () {
     const { details } = this.props;
     return (
@@ -13,7 +33,7 @@ class Stuff extends React.Component {
             <div className="caption">
               <p>{details.itemDescription}</p>
               <p>
-                <a class="btn btn-primary" role="button">Add</a>
+                <a className="btn btn-primary" role="button" onClick={this.addStuffEvent}>Add</a>
               </p>
             </div>
           </div>
