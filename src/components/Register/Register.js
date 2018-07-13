@@ -1,6 +1,7 @@
 import React from 'react';
 import './Register.css';
 import authRequests from '../../firebaseRequests/auth';
+import { Link } from 'react-router-dom';
 
 class Register extends React.Component {
   state = {
@@ -75,7 +76,7 @@ class Register extends React.Component {
               </div>
               <div className="form-group">
                 <div className="col-sm-12 text-center">
-                  {/* <Link to="/login">Need to Login?</Link> */}
+                  <Link to="/login">Need to Login?</Link>
                 </div>
               </div>
               <div className="form-group">

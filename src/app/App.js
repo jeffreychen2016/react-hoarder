@@ -52,6 +52,10 @@ class App extends Component {
     authed: false,
   };
 
+  logout = () => {
+    this.setState({authed: false});
+  };
+
   componentDidMount () {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -73,6 +77,7 @@ class App extends Component {
           <div>
             <Navbar
               authed={this.state.authed}
+              logout={this.logout}
             />
             <Switch>
               <Route path="/home" exact component={Home}/>
