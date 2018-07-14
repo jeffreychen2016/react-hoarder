@@ -7,6 +7,11 @@ import authRequests from '../../firebaseRequests/auth';
 class MyStuffs extends React.Component {
   state = {
     myStuffs: [],
+    componentFrom: 'MyStuffs',
+  };
+
+  updateMyStuffsAfterDelete = (stuffsAfterDelete) => {
+    this.setState({myStuffs: stuffsAfterDelete});
   };
 
   componentDidMount () {
@@ -25,6 +30,9 @@ class MyStuffs extends React.Component {
       return (
         <Stuff
           details={stuff}
+          key={stuff.id}
+          componentFrom={this.state.componentFrom}
+          updateMyStuffsAfterDelete={this.updateMyStuffsAfterDelete}
         />
       );
     });
