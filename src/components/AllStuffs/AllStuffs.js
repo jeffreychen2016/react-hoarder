@@ -6,6 +6,7 @@ import Stuff from '../Stuff/Stuff';
 class AllStuffs extends React.Component {
   state = {
     allStuffs: [],
+    componentFrom: 'AllStuffs',
   };
 
   componentDidMount () {
@@ -24,6 +25,8 @@ class AllStuffs extends React.Component {
       return (
         <Stuff
           details={stuff}
+          key={stuff.id}
+          componentFrom={this.state.componentFrom}
         />
       );
     });
