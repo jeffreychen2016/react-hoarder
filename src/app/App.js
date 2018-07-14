@@ -6,6 +6,7 @@ import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
 import MyStuffs from '../components/MyStuffs/MyStuffs';
 import Navbar from '../components/Navbar/Navbar';
+import ViewStuff from '../components/ViewStuff/ViewStuff';
 import {Route, BrowserRouter, Redirect, Switch} from 'react-router-dom';
 import fbconnection from '../firebaseRequests/connection';
 import firebase from 'firebase';
@@ -90,6 +91,11 @@ class App extends Component {
                 path="/login"
                 authed={this.state.authed}
                 component={Login}
+              />
+              <PrivateRoute
+                path="/mystuffs/:id"
+                authed={this.state.authed}
+                component={ViewStuff}
               />
               <PrivateRoute
                 path="/mystuffs"

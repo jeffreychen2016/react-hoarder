@@ -7,6 +7,7 @@ class Stuff extends React.Component {
   state = {
     stuffs: this.props.details,
     componentFrom: this.props.componentFrom,
+    stuffToView: {},
   }
 
   addStuffEvent = () => {
@@ -27,23 +28,6 @@ class Stuff extends React.Component {
       });
   };
 
-  // deleteStuffEvent = () => {
-  //   const stuffId = this.props.details.id;
-  //   stuffRequests
-  //     .deleteRequest(stuffId)
-  //     .then(() => {
-  //       // re-pull all Stuffs after delete
-  //       // console.error(this.props);
-  //       // this.props.history.push('/mystuffs');
-  //       delete this.state.stuffs[stuffId];
-  //       console.error(this.state.stuffs);
-  //     })
-  //     .catch((err) => {
-  //       console.error('Error with deleting stuff',err);
-
-  //     });
-  // };
-
   deleteStuffEvent = () => {
     const stuffId = this.props.details.id;
     stuffRequests
@@ -60,6 +44,11 @@ class Stuff extends React.Component {
       });
   };
 
+  viewStuffInFullScreen = () => {
+    const stuffId = this.props.details.id;
+    this.props.redirectToViewStuff(stuffId);
+  };
+
   render () {
     const { stuffs } = this.state;
     return (
@@ -70,13 +59,16 @@ class Stuff extends React.Component {
             <img src={stuffs.itemImage} alt={stuffs.itemName} />
             <div className="caption">
               <p>{stuffs.itemDescription}</p>
-              <p>
-                { this.state.componentFrom === 'MyStuffs' ?
-                  (<a className="btn btn-primary" role="button" onClick={this.deleteStuffEvent}>Delete</a>)
-                  :
-                  (<a className="btn btn-primary" role="button" onClick={this.addStuffEvent}>Add</a>)
-                }
-              </p>
+              { this.state.componentFrom === 'MyStuffs' ?
+                (
+                  <div>
+                    <a className="btn btn-primary" role="button" onClick={this.deleteStuffEvent}>Delete</a>
+                    <a className="btn btn-primary" role="button" onClick={this.viewStuffInFullScreen}>View</a>
+                  </div>
+                )
+                :
+                (<a className="btn btn-primary" role="button" onClick={this.addStuffEvent}>Add</a>)
+              }
             </div>
           </div>
         </div>

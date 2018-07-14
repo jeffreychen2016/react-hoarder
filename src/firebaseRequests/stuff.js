@@ -47,4 +47,17 @@ const deleteRequest = (stuffId) => {
   });
 };
 
-export default {postRequest,getRequest,deleteRequest};
+const getSingleStuffRequest = (id) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${constants.firebaseConfig.databaseURL}/myStuffs/${id}.json`)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+export default {postRequest,getRequest,deleteRequest,getSingleStuffRequest};

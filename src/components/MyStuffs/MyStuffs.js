@@ -25,6 +25,10 @@ class MyStuffs extends React.Component {
       });
   };
 
+  redirectToViewStuff = (stuffId) => {
+    this.props.history.push(`/mystuffs/${stuffId}`);
+  };
+
   render () {
     const stuffComponent = this.state.myStuffs.map((stuff) => {
       return (
@@ -33,6 +37,7 @@ class MyStuffs extends React.Component {
           key={stuff.id}
           componentFrom={this.state.componentFrom}
           updateMyStuffsAfterDelete={this.updateMyStuffsAfterDelete}
+          redirectToViewStuff={this.redirectToViewStuff}
         />
       );
     });
